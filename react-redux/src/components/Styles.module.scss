@@ -1,0 +1,48 @@
+.app_container {
+    display: flex;
+    flex-direction: column;
+    background-color: gainsboro;
+}
+
+.card_container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 30px;
+    animation: showCards 0.5s ease-out;
+    will-change: transform, opacity;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 300px;
+    width: 250px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 8px 15px rgba(0,0,0,0.25);
+    transition: all 0.3s cubic-bezier(.25,.8,.25,1);
+    will-change: all;
+    margin: 10px;
+    padding: 10px;
+    justify-content: center;
+}
+
+.card:hover {
+    transform: scale(1.1);
+    box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+
+@keyframes showCards {
+    from {
+        transform: translateY(200px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
