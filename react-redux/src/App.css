@@ -18,7 +18,16 @@
   background-color: white;
   min-height: 45px;
   display: flex;
+  width: 100vw;
   padding-left: 40px;
+  position: fixed;
+  z-index: 900000;
+}
+
+.Content {
+  padding-top: 71.833px;
+  z-index: 1;
+  height: 100vh;
 }
 
 .App-link {
