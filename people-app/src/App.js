@@ -24,10 +24,14 @@ const mapDispatchToProps = (dispatch) => {
 function App(props) {
   const [peopleData, setPeopleData] = useState(people);
 
-  useEffect(() => {
-    
-  })
+  useEffect(() => requestData(), []);
 
+  const requestData = () => {
+    fetch('https://jsonplaceholder.typicode.com/users')
+      .then(response => response.json())
+      .then(users => { console.log(users); setPeopleData(users) })
+  }
+  
   const { searchField } = props;
   var filteredPeople = peopleData.filter(p => {
     return p.name.toLowerCase().includes(searchField.toLowerCase());

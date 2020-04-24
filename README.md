@@ -1,3 +1,7 @@
+# react-with-redux
+
+A practice app showing React implemented with State Management thru Redux. Preview: https://gab-santi.github.io/react-with-redux/
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

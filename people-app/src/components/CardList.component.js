@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card.component";
 import styles from "./Styles.module.scss";
+import icon from '../images/man-3.png';
 
 const CardList = ({ people }) => {
   return (
@@ -12,7 +13,7 @@ const CardList = ({ people }) => {
             id={people[i].id}
             name={people[i].name}
             email={people[i].email}
-            icon={people[i].icon}
+            icon={icon}
           />
         );
       })}
