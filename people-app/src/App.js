@@ -8,7 +8,11 @@ import SearchBox from './components/SearchBox.component';
 
 import { setSearchField, requestPeople } from './actions';
 
+// for mapping reducer output state to component props
 // attribute: state.REDUCER.ATTRIBUTE
+//
+// usage in code:
+// const {ATTRIBUTE_NAME_1, ATTRIBUTE_NAME_2, ..} = props;
 const mapStateToProps = (state) => {
   return {
     searchField: state.searchPeople.searchField,
@@ -18,6 +22,12 @@ const mapStateToProps = (state) => {
   }
 }
 
+// for mapping dispacth actions to component props
+// FORMAT: YOUR_FUNCTION: () => dispatch(REDUCER_NAME())
+// can contain params
+//
+// usage in code:
+// props.YOUR_FUNCTION();
 const mapDispatchToProps = (dispatch) => {
   return {
     onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
@@ -25,6 +35,8 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
+// React Hooks
+// DO NOT FORGET props PARAMETER
 function App(props) {
   useEffect(() => props.onRequestPeople(), []);
   
@@ -53,4 +65,6 @@ function App(props) {
   );
 }
 
+// DO NOT FORGET export format
+// export default connect(mapStateToProps, mapDispatchToProps)(COMPONENT_NAME);
 export default connect(mapStateToProps, mapDispatchToProps)(App);

@@ -5,6 +5,16 @@ import {
   REQUEST_PEOPLE_SUCCESS
 } from "./constants.js";
 
+// action format
+/*
+    export const ACTION_NAME = () => {
+        return {
+            type: ACTION_NAME_IN_CONSTANTS,
+            payload: YOUR_DATA
+        }
+    }
+*/
+
 export const setSearchField = text => {
   return {
     type: CHANGE_SEARCH_FIELD,
@@ -12,7 +22,7 @@ export const setSearchField = text => {
   };
 };
 
-export const requestPeople = () => (dispatch) => {
+export const requestPeople = () => dispatch => {
   dispatch({ type: REQUEST_PEOPLE_PENDING });
   fetch("https://jsonplaceholder.typicode.com/users")
     .then(response => response.json())

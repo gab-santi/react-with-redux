@@ -12,9 +12,13 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+// very useful tool for monitoring state
 const logger = createLogger();
 
+// combine all reducers before passing to store
 const rootReducer = combineReducers({ searchPeople, requestPeople });
+
+// assign reducers & middleware to store
 const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 
 ReactDOM.render(
