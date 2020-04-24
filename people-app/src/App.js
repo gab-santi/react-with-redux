@@ -1,50 +1,53 @@
 import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
 import './App.css';
-import people from './people.js'
 import ErrorBoundary from './components/ErrorBoundary.component';
 import CardList from './components/CardList.component';
 import SearchBox from './components/SearchBox.component';
 
-import { setSearchField } from './actions';
+import { setSearchField, requestPeople } from './actions';
 
+// attribute: state.REDUCER.ATTRIBUTE
 const mapStateToProps = (state) => {
   return {
-    searchField: state.searchField
+    searchField: state.searchPeople.searchField,
+    people: state.requestPeople.people,
+    isPending: state.requestPeople.isPending,
+    error: state.requestPeople.error
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+    onSearchChange: (event) => dispatch(setSearchField(event.target.value)),
+    onRequestPeople: () => dispatch(requestPeople())
   }
 }
 
 function App(props) {
-  const [peopleData, setPeopleData] = useState(people);
-
-  useEffect(() => requestData(), []);
-
-  const requestData = () => {
-    fetch('https://jsonplaceholder.typicode.com/users')
-      .then(response => response.json())
-      .then(users => { console.log(users); setPeopleData(users) })
-  }
+  useEffect(() => props.onRequestPeople(), []);
   
-  const { searchField } = props;
-  var filteredPeople = peopleData.filter(p => {
+  const { searchField, onSearchChange, people, isPending } = props;
+
+  var filteredPeople = people.filter(p => {
     return p.name.toLowerCase().includes(searchField.toLowerCase());
   })
 
-  return (
+  let content;
+  if (!people.length) {
+    content = <p>Loading profiles..</p>;
+  } else {
+    content = <><SearchBox searchChange={props.onSearchChange} /><CardList people={filteredPeople} /></>
+  }
+
+  return ( 
     <div className="App">
       <header className="App-header">
         <h2>People</h2>
       </header>
       <div className="Content">
-        <SearchBox searchChange={props.onSearchChange} />
-        <CardList people={filteredPeople} />
+        {content}
       </div>
     </div>
   );

@@ -2,15 +2,20 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 // redux imports
+import thunkMiddleware from 'redux-thunk';
 import { Provider, connect } from 'react-redux';
-import { createStore } from 'redux';
-import { searchPeople } from './reducers';
+import { createLogger } from 'redux-logger';
+import { createStore, applyMiddleware, combineReducers } from 'redux';
+import { searchPeople, requestPeople } from './reducers';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-const store = createStore(searchPeople);
+const logger = createLogger();
+
+const rootReducer = combineReducers({ searchPeople, requestPeople });
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware, logger));
 
 ReactDOM.render(
   <React.StrictMode>
