@@ -1,19 +1,34 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import logo from './logo.svg';
+import { connect } from 'react-redux'
 import './App.css';
 import people from './people.js'
 import ErrorBoundary from './components/ErrorBoundary.component';
 import CardList from './components/CardList.component';
 import SearchBox from './components/SearchBox.component';
 
-function App() {
-  const [peopleData, setPeopleData] = useState(people);
-  const [searchField, setSearchField] = useState('');
+import { setSearchField } from './actions';
 
-  const onSearchChange = (event) => {
-    setSearchField(event.target.value);
+const mapStateToProps = (state) => {
+  return {
+    searchField: state.searchField
   }
+}
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSearchChange: (event) => dispatch(setSearchField(event.target.value))
+  }
+}
+
+function App(props) {
+  const [peopleData, setPeopleData] = useState(people);
+
+  useEffect(() => {
+    
+  })
+
+  const { searchField } = props;
   var filteredPeople = peopleData.filter(p => {
     return p.name.toLowerCase().includes(searchField.toLowerCase());
   })
@@ -24,11 +39,11 @@ function App() {
         <h2>People</h2>
       </header>
       <div className="Content">
-        <SearchBox searchChange={onSearchChange} />
+        <SearchBox searchChange={props.onSearchChange} />
         <CardList people={filteredPeople} />
       </div>
     </div>
   );
 }
 
-export default App;
+export default connect(mapStateToProps, mapDispatchToProps)(App);
